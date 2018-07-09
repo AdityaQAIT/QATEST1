@@ -17,13 +17,15 @@ public class MyCollection implements DynamicArray{
 	 * It constructs an empty Collection object with an array capacity specified by the integer
 		parameter "arraySize".
 	 */
+	private int count=0;
+	
 	public MyCollection(int arraySize){
 		numArray = new int[arraySize];
 	}
 
 	public int search(int searchingNum) {
 		int position=-1;
-		for(int i=0;i<NumberOfElementsPresent();i++) {
+		for(int i=0;i<count;i++) {
 			if(numArray[i]==searchingNum) {
 				position = i;
 				break;
@@ -34,16 +36,18 @@ public class MyCollection implements DynamicArray{
 
 	public boolean add(int numberToAdd) {
 		
-		int size = NumberOfElementsPresent();
+		int size = count;
 	
 		if(size!=numArray.length&&search(numberToAdd)==-1) {
 			numArray[size]=numberToAdd;
+			count++;
 			return true;
 		}
 		else if(size==numArray.length) {
 			doubleCapacity();
-			size = NumberOfElementsPresent();
+			size = count;
 			numArray[size]=numberToAdd;
+			count++;
 			return true;
 		}
 		
@@ -62,17 +66,17 @@ public class MyCollection implements DynamicArray{
 	public boolean remove(int numberToRemove) {
 		int position=search(numberToRemove);
 		if(position!=-1) {
-		for(int i=position;i<NumberOfElementsPresent()-1;i++) {
+		for(int i=position;i<count-1;i++) {
 			numArray[i]=numArray[i+1];
 		}
-		numArray[NumberOfElementsPresent()-1]=0;
+		numArray[count-1]=0;
 		return true;
 		}
 		return false;
 	}
 
 	public int getCount() {
-		return NumberOfElementsPresent();
+		return count;
 	}
 
 	public int[] rotate(int n) {
@@ -81,11 +85,11 @@ public class MyCollection implements DynamicArray{
 		for(int i=0;i<n;i++) {
 			dummy_array[i]=numArray[i];
 		}
-		for(int i=n;i<NumberOfElementsPresent();i++) {
+		for(int i=n;i<count;i++) {
 			numArray[i-n]=numArray[i];
 		}
 		for(int i=0;i<n;i++) {
-			numArray[NumberOfElementsPresent()-n+i]=dummy_array[i];
+			numArray[count-n+i]=dummy_array[i];
 		}
 		
 		
@@ -94,7 +98,7 @@ public class MyCollection implements DynamicArray{
 	
 	public String toString() {
 		String array="{";
-		for(int i=0;i<NumberOfElementsPresent();i++) {
+		for(int i=0;i<count;i++) {
 			array=array+Integer.toString(numArray[i])+",";
 		}
 		if(array.charAt(array.length()-1)==',') {
@@ -104,14 +108,7 @@ public class MyCollection implements DynamicArray{
 		return array;
 	}
 	
-	private int NumberOfElementsPresent() {
-		int count=0;
-		for(int i=0;i<numArray.length;i++) {
-			if(numArray[i]!=0)
-				count++;
-		}
-		return count;
-	}
+	
 	
 
 }
