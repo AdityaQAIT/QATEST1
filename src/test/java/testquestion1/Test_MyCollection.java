@@ -13,6 +13,7 @@ public class Test_MyCollection {
 	@Test(description="Check Add functionality")
 	public void Test1_Able_To_Add_New_Entry_In_Collection(){
 		dynamicArray = new MyCollection(10);
+		
 		Assert.assertTrue(dynamicArray.add(5),"Assertion Failed : Not able to add number 5 in collection");
 		Reporter.log("[INFO] : Assertion Passed : Add New Entry functionality is working fine", true);
 	}
